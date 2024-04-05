@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34723.18
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F0EE2D4B-901D-4737-88BB-9A8AD952AFE7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{B10421BD-D853-4E12-9DAF-BA1A9FFA5164}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevDox.Domain", "DevDox.Domain\DevDox.Domain.csproj", "{8141FB12-D5F3-4C9D-9DDD-7EC3399BD47E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8141FB12-D5F3-4C9D-9DDD-7EC3399BD47E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8141FB12-D5F3-4C9D-9DDD-7EC3399BD47E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8141FB12-D5F3-4C9D-9DDD-7EC3399BD47E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8141FB12-D5F3-4C9D-9DDD-7EC3399BD47E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8141FB12-D5F3-4C9D-9DDD-7EC3399BD47E} = {F0EE2D4B-901D-4737-88BB-9A8AD952AFE7}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A7E9382E-D6B8-47B3-AD13-F50F2F71325B}
+	EndGlobalSection
+EndGlobal
