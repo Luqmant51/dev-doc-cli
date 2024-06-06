@@ -1,0 +1,5 @@
+keycloak:
+  url: "https://identity.teamfullstack.io"
+  realm: "usman"
+  client_id: "dev-docs-api-2"
+  client_secret: "OnFjdJXPmmGjvyFvRbRnCbBjGniPlKI9"
