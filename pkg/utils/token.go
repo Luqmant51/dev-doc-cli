@@ -3,11 +3,12 @@ package utils
 import (
 	"bufio"
 	"fmt"
-	"github.com/golang-jwt/jwt/v4"
 	"log"
 	"os"
 	"strings"
 	"time"
+
+	"github.com/golang-jwt/jwt/v4"
 
 	"dev-docs-cli/pkg/models"
 )

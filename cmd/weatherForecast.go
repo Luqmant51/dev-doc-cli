@@ -1,22 +1,35 @@
 package cmd
 
 import (
-	"dev-docs-cli/pkg/models"
 	"dev-docs-cli/pkg/utils"
-	"encoding/json"
 	"fmt"
-	"github.com/spf13/cobra"
 	"log"
-	"net/http"
 	"os"
 	"path/filepath"
+	"strings"
+
+	"github.com/spf13/cobra"
 )
 
 var weatherCmd = &cobra.Command{
 	Use:   "weather",
 	Short: "Fetch the weather forecast",
 	Run: func(cmd *cobra.Command, args []string) {
-		url, _ := cmd.Flags().GetString("url")
+		baseurl := os.Getenv("API_URL")
+		fmt.Print(baseurl)
+		if baseurl == "" {
+			log.Fatal("API_URL environment variable is not set")
+		}
+
+		// Check if the baseurl has the proper scheme
+		if !strings.HasPrefix(baseurl, "http://") && !strings.HasPrefix(baseurl, "https://") {
+			log.Fatal("API_URL must include the protocol scheme (http:// or https://)")
+		}
+
+		url := baseurl + "/WeatherForecast"
+
+		// Debug statement to verify URL
+		fmt.Printf("Requesting weather forecast from URL: %s\n", url)
 
 		// Get the executable path
 		exePath, err := os.Executable()
@@ -43,32 +56,14 @@ var weatherCmd = &cobra.Command{
 			log.Fatal("Token has expired")
 		}
 
-		// Create a new request
-		req, err := http.NewRequest("GET", url, nil)
+		// Fetch the weather forecast
+		resp, err := utils.FetchWeatherForecast(url, user.AccessToken)
 		if err != nil {
-			log.Fatalf("Failed to create request: %v", err)
-		}
-
-		// Set the token in the request header
-		req.Header.Set("Authorization", "Bearer "+user.AccessToken)
-
-		// Send the request
-		client := &http.Client{}
-		resp, err := client.Do(req)
-		if err != nil {
-			log.Fatalf("Failed to send request: %v", err)
-		}
-		defer resp.Body.Close()
-
-		// Read and parse the response
-		var forecasts []models.WeatherForecast
-		err = json.NewDecoder(resp.Body).Decode(&forecasts)
-		if err != nil {
-			log.Fatalf("Failed to parse response: %v", err)
+			log.Fatalf("Failed to fetch weather forecast: %v", err)
 		}
 
 		// Print the result
-		for _, forecast := range forecasts {
+		for _, forecast := range resp {
 			fmt.Printf("Date: %s\nTemperature (C): %d\nTemperature (F): %d\nSummary: %s\n\n",
 				forecast.Date, forecast.TemperatureC, forecast.TemperatureF, forecast.Summary)
 		}
@@ -76,6 +71,5 @@ var weatherCmd = &cobra.Command{
 }
 
 func init() {
-	weatherCmd.Flags().String("url", "https://localhost:44319/WeatherForecast", "API URL to hit")
 	rootCmd.AddCommand(weatherCmd)
 }
